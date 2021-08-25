@@ -1,0 +1,59 @@
+
+import { 
+   Dispatch, 
+   SetStateAction,
+   ReactNode,
+   createContext,
+   useState,
+} from 'react';
+
+
+interface VacancyApplicationData {
+   wasUserSuccessfullyApplied: boolean;
+   setWasUserSuccessfullyApplied: Dispatch<SetStateAction<boolean>>;
+   isUserAlreadyApplied: boolean;
+   setIsUserAlreadyApplied: Dispatch<SetStateAction<boolean>>;
+   userNotPremium: boolean;
+   setUserNotPremium: Dispatch<SetStateAction<boolean>>;
+   userExist: boolean;
+   setUserExist: Dispatch<SetStateAction<boolean>>;
+   userHasSkill: boolean;
+   setUserHasSkill: Dispatch<SetStateAction<boolean>>;
+}
+
+interface VacancyApplicationProviderProps {
+   children: ReactNode;
+}
+
+export const VacancyApplicationContext = createContext({} as VacancyApplicationData);
+
+export function VacancyApplicationProvider({ children }: VacancyApplicationProviderProps) {
+   const [ wasUserSuccessfullyApplied, setWasUserSuccessfullyApplied ] = useState(false);
+   const [isUserAlreadyApplied, setIsUserAlreadyApplied ] = useState(false);
+   const [userNotPremium, setUserNotPremium ] = useState(false);
+   const [ userExist, setUserExist ] = useState(true);
+   const [ userHasSkill, setUserHasSkill ] = useState(true);
+
+   return(
+      <VacancyApplicationContext.Provider
+         value = {{
+            wasUserSuccessfullyApplied,
+            setWasUserSuccessfullyApplied,
+
+            isUserAlreadyApplied,
+            setIsUserAlreadyApplied,
+
+            userNotPremium,
+            setUserNotPremium,
+
+            userExist,
+            setUserExist,
+            
+            userHasSkill, 
+            setUserHasSkill
+         }}
+      >
+         {children}
+      </VacancyApplicationContext.Provider>
+   )
+} 
